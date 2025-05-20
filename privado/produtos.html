@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro de produtos</title>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="/menu.html">SGP</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  Cadastros
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="/produtos.html">Produtos</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="/cliente.html">Clientes</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Fornecedores</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Entregadores</a></li>
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="#">Categorias</a></li>
+                </ul>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/logout">Sair</a>
+              </li>
+            </ul>
+            <form class="d-flex">
+              <input class="form-control me-2" type="search" placeholder="Buscar" aria-label="Search">
+              <button class="btn btn-outline-success" type="submit">Buscar</button>
+            </form>
+          </div>
+        </div>
+      </nav>
+    <div class="container">
+        <div class="alert alert-secondary text-center mt-5">
+            <h1>Cadastro de Produtos</h1>
+        </div>
+    <form id="formCadProdutos" class="row g-3 needs-validation border m-1 p-2" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="Produto">Produto</label>
+            <input type="text" class="form-control" id="Produto" name="Produto" required>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="Preco">Preco do produto</label>
+            <input type="text" class="form-control" id="Preco" placeholder="0.00" name="Preco" required>
+          </div>
+          <div class="col-md-12 md-3">
+            <label for="Estoque">Quantidade no estoque</label>
+            <input type="text" class="form-control" id="Estoque" name="Estoque"required>
+        </div>
+        <button class="btn btn-primary" type="submit">Enviar</button>
+    </form>
+    </div>
+    <div id="tabela">
+            
+    </div>
+</body>
+<script src='/js/bootstrap.bundle.min.js'></script>
+<script src="/js/scriptProduto.js"></script>
+</html>
