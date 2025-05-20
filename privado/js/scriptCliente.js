@@ -19,8 +19,7 @@ function manipularSubmissao(evento){
         const cliente = {cpf,nome,telefone,cidade,uf,cep};
         listaDeClientes.push(cliente);
         localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        formulario.reset();
-        mostrarTabelaClientes();
+        formulario.Clientes();
     }
     else{
         formulario.classList.add('was-validated');
@@ -80,7 +79,7 @@ function excluirCliente(cpf){
             return cliente.cpf !== cpf;
         });
         localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        document.getElementById(cpf).remove(); //excluir a linha da tabela
+        document.getElementById(cpf).remove(); //excluir a linha da taClientes();
     }
 }
 
