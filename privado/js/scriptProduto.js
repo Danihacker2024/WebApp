@@ -64,13 +64,13 @@ function mostrarTabelaProdutos(){
     }
 }
 
-function excluirProduto(produto){
-    if(confirm("Deseja realmente excluir o produto " + produto + "?")){
+function excluirProduto(nome){
+    if(confirm("Deseja realmente excluir o produto " + nome + "?")){
         listaDeProdutos = listaDeProdutos.filter((produto) => { 
-            return produto.nome !== produto;
+            return produto.nome !== nome;
         });
         localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
-        document.getElementById(produto).remove(); //excluir a linha da tabela
+        document.getElementById(nome).remove(); //excluir a linha da tabela
     }
 }
 
