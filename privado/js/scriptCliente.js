@@ -1,6 +1,5 @@
-const { json } = require("express");
 
-let urlBase = 'http://localhost:4000/clientes';
+const urlBase = 'http://localhost:4000/clientes';
 
 const formulario = document.getElementById("formCadCliente");
 let listaDeClientes = [];
@@ -23,7 +22,8 @@ function manipularSubmissao(evento){
         const cliente = {cpf,nome,telefone,cidade,uf,cep};
         listaDeClientes.push(cliente);
         localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        formulario.Clientes();
+        formulario.reset();
+        mostrarTabelaClientes();
     }
     else{
         formulario.classList.add('was-validated');
@@ -83,17 +83,17 @@ function excluirCliente(cpf){
             return cliente.cpf !== cpf;
         });
         localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        document.getElementById(cpf).remove(); //excluir a linha da taClientes();
+        document.getElementById(cpf).remove(); //excluir a linha da tabela
     }
 }
 
 function obterDadosClientes(){
-    //enviar uma requisição para uma fonte servidora
+    //enviar uma requisição para a fonte servidora
     fetch(urlBase, {
         method:"GET"
     })
     .then((resposta)=>{
-        if(resposta.ok){
+        if (resposta.ok){
             return resposta.json();
         }
     })
@@ -102,8 +102,8 @@ function obterDadosClientes(){
         mostrarTabelaClientes();
     })
     .catch((erro)=>{
-        alert("Erro ao tentar recuperar clientes no servidor");
+        alert("Erro ao tentar recuperar clientes do servidor!");
     });
-
 }
+
 obterDadosClientes();
