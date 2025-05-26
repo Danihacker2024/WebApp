@@ -28,9 +28,6 @@
       "cep": "86163432"
     },
     {
-      "id": "8268"
-    },
-    {
       "id": "4",
       "cpf": "111.132.541-11",
       "nome": "Gabriela",
@@ -38,6 +35,33 @@
       "cidade": "Brasilia",
       "uf": "DF",
       "cep": "86160000"
+    },
+    {
+      "id": "27e7",
+      "cpf": "756.457.474-34",
+      "nome": "Teste inclusao",
+      "telefone": "(18)99164587",
+      "cidade": "Presidente Prudente",
+      "uf": "BA",
+      "cep": "86160000"
+    },
+    {
+      "id": "7d1f",
+      "cpf": "65765",
+      "nome": "Jonas",
+      "telefone": "764568",
+      "cidade": "Ninive",
+      "uf": "SE",
+      "cep": "6756856"
+    },
+    {
+      "id": "427b",
+      "cpf": "5055511465845",
+      "nome": "Guilher",
+      "telefone": "1589878795498",
+      "cidade": "sim",
+      "uf": "SC",
+      "cep": "1010101"
     }
   ],
   "fornecedores": [],

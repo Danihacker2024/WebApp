@@ -20,8 +20,7 @@ function manipularSubmissao(evento){
         const uf = document.getElementById("uf").value;
         const cep = document.getElementById("cep").value;
         const cliente = {cpf,nome,telefone,cidade,uf,cep};
-        listaDeClientes.push(cliente);
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+        cadastrarCliente(cliente);
         formulario.reset();
         mostrarTabelaClientes();
     }
@@ -105,5 +104,27 @@ function obterDadosClientes(){
         alert("Erro ao tentar recuperar clientes do servidor!");
     });
 }
+
+function cadastrarCliente(cliente){
+    fetch(urlBase,{
+        "method":"POST",
+        "headers": {
+            "Content-Type":"application/json",
+        },
+        "body":JSON.stringify(cliente)
+    })
+    .then((resposta)=>{
+        if(resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then((dados)=>{
+        alert(`Cliente incluido com sucesso! ID:${dados.id}`);
+    })
+    .catch((erro)=>{
+        alert("Erro ao cadastrar o cliente:" + erro);
+    })
+}
+
 
 obterDadosClientes();
