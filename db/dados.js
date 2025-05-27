@@ -62,6 +62,15 @@
       "cidade": "sim",
       "uf": "SC",
       "cep": "1010101"
+    },
+    {
+      "id": "1a67",
+      "cpf": "543645",
+      "nome": "TELMA REGINATO MARTINS",
+      "telefone": "41984651",
+      "cidade": "Presidente Prudente",
+      "uf": "GO",
+      "cep": "19061-135"
     }
   ],
   "fornecedores": [],

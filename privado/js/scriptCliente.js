@@ -76,13 +76,24 @@ function mostrarTabelaClientes(){
     }
 }
 
-function excluirCliente(cpf){
-    if(confirm("Deseja realmente excluir o cliente " + cpf + "?")){
-        listaDeClientes = listaDeClientes.filter((cliente) => { 
-            return cliente.cpf !== cpf;
+function excluirCliente(id){
+    if(confirm("Deseja realmente excluir o cliente " + id + "?")){
+        fetch(urlBase + "/" + id,{
+            method:"DELETE"
+        }).then((resposta) => {
+            if (resposta.ok){
+                return resposta.json();
+            }
+        }).then((dados)=>{
+            alert("Cliente excluído com sucesso!");
+            listaDeClientes = listaDeClientes.filter((cliente) => { 
+                return cliente.id !== id;
+            });
+            //localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+            document.getElementById(id)?.remove(); //excluir a linha da tabela
+        }).catch((erro) => {
+            alert("Não foi possível excluir o cliente: " + erro);
         });
-        localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
-        document.getElementById(cpf).remove(); //excluir a linha da tabela
     }
 }
 
