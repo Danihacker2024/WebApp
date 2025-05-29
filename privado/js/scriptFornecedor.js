@@ -1,3 +1,5 @@
+const urlBase = 'http://localhost:4000/clientes';
+
 const formulario = document.getElementById("formCadFornecedor");
 let listaDeFornecedores = [];
 
@@ -15,8 +17,7 @@ function manipularSubmissao(evento){
         const endereco = document.getElementById("Endereco").value;
         const email = document.getElementById("Email").value;
         const fornecedor = {nome,telefone,endereco,email};
-        listaDeFornecedores.push(fornecedor);
-        localStorage.setItem("fornecedores", JSON.stringify(listaDeFornecedores));
+        cadastrarFornecedor(fornecedor);
         formulario.reset();
         mostrarTabelaFornecedores();
     }
@@ -67,14 +68,67 @@ function mostrarTabelaFornecedores(){
     }
 }
 
-function excluirFornecedor(nome){
-    if(confirm("Deseja realmente excluir o cliente " + nome + "?")){
-        listaDeFornecedores = listaDeFornecedores.filter((fornecedor) => { 
-            return fornecedor.nome !== nome;
+
+function excluirFornecedor(id){
+    if(confirm("Deseja realmente excluir o fornecedor " + id + "?")){
+        fetch(urlBase + "/" + id,{
+            method:"DELETE"
+        }).then((resposta) => {
+            if (resposta.ok){
+                return resposta.json();
+            }
+        }).then((dados)=>{
+            alert("Fornecedor excluído com sucesso!");
+            listaDeFornecedores = listaDeFornecedores.filter((fornecedor) => { 
+                return fornecedor.id !== id;
+            });
+            //localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
+            document.getElementById(id)?.remove(); //excluir a linha da tabela
+        }).catch((erro) => {
+            alert("Não foi possível excluir o fornecedor: " + erro);
         });
-        localStorage.setItem("fornecedores", JSON.stringify(listaDeFornecedores));
-        document.getElementById(nome).remove(); //excluir a linha da tabela
     }
 }
 
-mostrarTabelaFornecedores();
+function obterDadosFornecedores(){
+    //enviar uma requisição para a fonte servidora
+    fetch(urlBase, {
+        method:"GET"
+    })
+    .then((resposta)=>{
+        if (resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then((fornecedores)=>{
+        listaDeFornecedores=fornecedores;
+        mostrarTabelaFornecedores();
+    })
+    .catch((erro)=>{
+        alert("Erro ao tentar recuperar fornecedores do servidor!");
+    });
+}
+
+function cadastrarFornecedor(fornecedor){
+    fetch(urlBase,{
+        "method":"POST",
+        "headers": {
+            "Content-Type":"application/json",
+        },
+        "body":JSON.stringify(fornecedor)
+    })
+    .then((resposta)=>{
+        if(resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then((dados)=>{
+        alert(`Fornecedor incluido com sucesso! ID:${dados.id}`);
+    })
+    .catch((erro)=>{
+        alert("Erro ao cadastrar o Fornecedor:" + erro);
+    })
+}
+
+
+obterDadosFornecedores();

@@ -73,7 +73,15 @@
       "cep": "19061-135"
     }
   ],
-  "fornecedores": [],
+  "fornecedores": [
+    {
+      "id":"1",
+      "Nome":"Emily",
+      "Telefone":"1899684736",
+      "Endereco":"Rua passaros verdes",
+      "Email":"emilyemail@gmail.com"
+    }
+  ],
   "produtos": [],
   "entregadores": [],
   "categorias": []
