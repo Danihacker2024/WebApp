@@ -62,27 +62,20 @@
       "cidade": "sim",
       "uf": "SC",
       "cep": "1010101"
-    },
-    {
-      "id": "1a67",
-      "cpf": "543645",
-      "nome": "TELMA REGINATO MARTINS",
-      "telefone": "41984651",
-      "cidade": "Presidente Prudente",
-      "uf": "GO",
-      "cep": "19061-135"
     }
   ],
   "fornecedores": [
     {
-      "id":"1",
-      "Nome":"Emily",
-      "Telefone":"1899684736",
-      "Endereco":"Rua passaros verdes",
-      "Email":"emilyemail@gmail.com"
+      "id": "02d4",
+      "nome": "Gas10",
+      "telefone": "18 705714401",
+      "endereco": "Rua sete de setembro",
+      "email": "gas10@gmail.com"
     }
   ],
-  "produtos": [],
+  "produtos": [
+    
+  ],
   "entregadores": [],
   "categorias": []
 }

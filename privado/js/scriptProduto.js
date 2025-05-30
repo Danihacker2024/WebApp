@@ -1,3 +1,6 @@
+
+const urlBase = 'http://localhost:4000/produtos';
+
 const formulario = document.getElementById("formCadProdutos");
 let listaDeProdutos = [];
 
@@ -49,12 +52,12 @@ function mostrarTabelaProdutos(){
         tabela.appendChild(cabecalho);
         for (let i=0; i < listaDeProdutos.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeProdutos[i].nome;
+            linha.id=listaDeProdutos[i].id;
             linha.innerHTML=`
                 <td>${listaDeProdutos[i].nome}</td>
                 <td>${listaDeProdutos[i].preco}</td>
                 <td>${listaDeProdutos[i].estoque}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].nome}')"><i class="bi bi-trash"></i></button></td>
+                <td><button type="button" class="btn btn-danger" onclick="excluirProduto('${listaDeProdutos[i].id}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -64,14 +67,69 @@ function mostrarTabelaProdutos(){
     }
 }
 
-function excluirProduto(nome){
-    if(confirm("Deseja realmente excluir o produto " + nome + "?")){
-        listaDeProdutos = listaDeProdutos.filter((produto) => { 
-            return produto.nome !== nome;
+function excluirProduto(id) {
+    if (confirm("Deseja realmente excluir o fornecedor " + id + "?")) {
+        fetch(urlBase + "/" + id, {
+            method: "DELETE"
+        }).then((resposta) => {
+            if (resposta.ok) {
+                return resposta.json();
+            }
+        }).then((dados) => {
+            alert("Produto excluído com sucesso!");
+            listaDeProdutos = listaDeProdutos.filter((produto) => {
+                return produto.id !== id;
+            });
+            // Atualizar o localStorage após a exclusão
+            localStorage.setItem("fornecedores", JSON.stringify(listaDeFornecedores));
+            document.getElementById(id)?.remove(); // Excluir a linha da tabela
+        }).catch((erro) => {
+            alert("Não foi possível excluir o fornecedor: " + erro);
         });
-        localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
-        document.getElementById(nome).remove(); //excluir a linha da tabela
     }
 }
 
-mostrarTabelaProdutos();
+
+function obterDadosFornecedores(){
+    //enviar uma requisição para a fonte servidora
+    fetch(urlBase, {
+        method:"GET"
+    })
+    .then((resposta)=>{
+        if (resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then((fornecedores)=>{
+        listaDeFornecedores=fornecedores;
+        localStorage.setItem("fornecedores", JSON.stringify(fornecedores));
+        mostrarTabelaFornecedores();
+    })
+    .catch((erro)=>{
+        alert("Erro ao tentar recuperar fornecedores do servidor!");
+    });
+}
+
+function cadastrarFornecedor(fornecedor){
+    fetch(urlBase,{
+        "method":"POST",
+        "headers": {
+            "Content-Type":"application/json",
+        },
+        "body":JSON.stringify(fornecedor)
+    })
+    .then((resposta)=>{
+        if(resposta.ok){
+            return resposta.json();
+        }
+    })
+    .then((dados)=>{
+        alert(`Fornecedor incluido com sucesso! ID:${dados.id}`);
+    })
+    .catch((erro)=>{
+        alert("Erro ao cadastrar o Fornecedor:" + erro);
+    })
+}
+
+
+obterDadosFornecedores();
