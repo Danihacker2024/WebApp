@@ -74,8 +74,25 @@
     }
   ],
   "produtos": [
-    
+    {
+      "id": "b066",
+      "nome": "Banana",
+      "preco": "10",
+      "estoque": "80"
+    }
   ],
-  "entregadores": [],
+  "entregadores": [
+    {
+      "id": "1242",
+      "cpf": "65475647655",
+      "nome": "Gabriel ",
+      "telefone": "78563874",
+      "cidade": "Montalvao",
+      "uf": "GO",
+      "carteira": "6547567658",
+      "placa": "7567865875",
+      "veiculo": "MOTO"
+    }
+  ],
   "categorias": []
 }

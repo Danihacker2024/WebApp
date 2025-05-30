@@ -1,12 +1,7 @@
 const urlBase = 'http://localhost:4000/entregadores';
 
 const formulario = document.getElementById("formCadentregadores");
-let listaDeClientes = [];
-
-if (localStorage.getItem("entregadores")){
-    //recuperando do armazenamento local a lista de clientes
-    listaDeClientes = JSON.parse(localStorage.getItem("entregadores"));
-}
+let lista = [];
 
 formulario.onsubmit=manipularSubmissao;
 
@@ -17,15 +12,14 @@ function manipularSubmissao(evento){
         const telefone = document.getElementById("telefone").value;
         const cidade = document.getElementById("cidade").value;
         const uf = document.getElementById("uf").value;
-        const cep = document.getElementById("cep").value;
         const carteira = document.getElementById("carteira").value;
         const placa = document.getElementById("placa").value;
         const veiculo = document.getElementById("veiculo").value;
 
-        const entregadores = {cpf,nome,telefone,cidade,uf,cep, carteira, placa, veiculo};
-        cadastrarCliente(cliente);
+        const entregador = {cpf,nome,telefone,cidade,uf,carteira, placa, veiculo};
+        cadastrar(entregador);
         formulario.reset();
-        mostrarTabelaClientes();
+        mostrarTabela();
     }
     else{
         formulario.classList.add('was-validated');
@@ -35,11 +29,11 @@ function manipularSubmissao(evento){
 
 }
 
-function mostrarTabelaClientes(){
+function mostrarTabela(){
     const divTabela = document.getElementById("tabela");
     divTabela.innerHTML=""; //apagando o conteúdo da div
-    if (listaDeClientes.length === 0){
-        divTabela.innerHTML="<p class='alert alert-info text-center'>Não há clientes cadastrados</p>";
+    if (lista.length === 0){
+        divTabela.innerHTML="<p class='alert alert-info text-center'>Não há entregadores cadastrados</p>";
     }
     else{
         const tabela = document.createElement('table');
@@ -54,7 +48,6 @@ function mostrarTabelaClientes(){
                 <th>Telefone</th>
                 <th>Cidade</th>
                 <th>UF</th>
-                <th>CEP</th>
                 <th>Placa</th>
                 <th>Carteira</th>
                 <th>Veiculo</th>
@@ -62,17 +55,19 @@ function mostrarTabelaClientes(){
             </tr>
         `;
         tabela.appendChild(cabecalho);
-        for (let i=0; i < listaDeentregadores.length; i++){
+        for (let i=0; i < lista.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeentregadores[i].cpf;
+            linha.id=lista[i].id;
             linha.innerHTML=`
-                <td>${listaDeentregadores[i].cpf}</td>
-                <td>${listaDeentregadores[i].nome}</td>
-                <td>${listaDeentregadores[i].telefone}</td>
-                <td>${listaDeentregadores[i].cidade}</td>
-                <td>${listaDeentregadores[i].uf}</td>
-                <td>${listaDeentregadores[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeentregadores[i].cpf}')"><i class="bi bi-trash"></i></button></td>
+                <td>${lista[i].cpf}</td>
+                <td>${lista[i].nome}</td>
+                <td>${lista[i].telefone}</td>
+                <td>${lista[i].cidade}</td>
+                <td>${lista[i].uf}</td>
+                <td>${lista[i].carteira}</td>
+                <td>${lista[i].placa}</td>
+                <td>${lista[i].veiculo}</td>
+                <td><button type="button" class="btn btn-danger" onclick="excluir('${lista[i].id}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -82,7 +77,7 @@ function mostrarTabelaClientes(){
     }
 }
 
-function excluirentreadores(id){
+function excluir(id){
     if(confirm("Deseja realmente excluir o entregador " + id + "?")){
         fetch(urlBase + "/" + id,{
             method:"DELETE"
@@ -92,7 +87,7 @@ function excluirentreadores(id){
             }
         }).then((dados)=>{
             alert("Entregador excluído com sucesso!");
-            listaDeentregadores = listaDeentregadores.filter((entregadores) => { 
+            lista = lista.filter((entregadores) => { 
                 return entregadores.id !== id;
             });
             //localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
@@ -103,7 +98,7 @@ function excluirentreadores(id){
     }
 }
 
-function obterDadosentregadores(){
+function obterDados(){
     //enviar uma requisição para a fonte servidora
     fetch(urlBase, {
         method:"GET"
@@ -113,22 +108,22 @@ function obterDadosentregadores(){
             return resposta.json();
         }
     })
-    .then((clientes)=>{
-        listaDeentregadores=clientes;
-        mostrarTabelaentregador();
+    .then((entregadores)=>{
+        lista=entregadores;
+        mostrarTabela();
     })
     .catch((erro)=>{
         alert("Erro ao tentar recuperar entregador do servidor!");
     });
 }
 
-function cadastrarCliente(cliente){
+function cadastrar(entregador){
     fetch(urlBase,{
         "method":"POST",
         "headers": {
             "Content-Type":"application/json",
         },
-        "body":JSON.stringify(cliente)
+        "body":JSON.stringify(entregador)
     })
     .then((resposta)=>{
         if(resposta.ok){
@@ -136,12 +131,13 @@ function cadastrarCliente(cliente){
         }
     })
     .then((dados)=>{
-        alert(`Cliente incluido com sucesso! ID:${dados.id}`);
+        alert(`Entregador incluido com sucesso! ID:${dados.id}`);
+        obterDados(); 
     })
     .catch((erro)=>{
-        alert("Erro ao cadastrar o cliente:" + erro);
+        alert("Erro ao cadastrar o entregador:" + erro);
     })
 }
 
 
-obterDadosClientes();
+obterDados();

@@ -28,7 +28,7 @@
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="/fornecedor.html">Fornecedores</a></li>
                   <li><hr class="dropdown-divider"></li>
-                  <li><a class="dropdown-item" href="/entrgadores.html">Entregadores</a></li>
+                  <li><a class="dropdown-item" href="/entregadores.html">Entregadores</a></li>
                   <li><hr class="dropdown-divider"></li>
                   <li><a class="dropdown-item" href="#">Categorias</a></li>
                 </ul>
@@ -46,9 +46,9 @@
       </nav>
     <div class="container">
         <div class="alert alert-secondary text-center mt-5">
-            <h1>Cadastro de Clientes</h1>
+            <h1>Cadastro de Entregadores</h1>
         </div>
-        <form id="formCadCliente" class="row g-3 needs-validation border m-1 p-2" novalidate>
+        <form id="formCadentregadores" class="row g-3 needs-validation border m-1 p-2" novalidate>
             <div class="col-md-4">
                 <label for="nome" class="form-label">Nome</label>
                 <input type="text" class="form-control" id="nome" required>
@@ -129,12 +129,9 @@
                 </div>
             </div>
             <div>
-                <div class="col-12 text-center">
-                    <button class="btn btn-primary" type="submit">Cadastrar</button>
-                </div>
                 <div class="col-md-3">
                     <label for="veiculo" class="form-label">veiculo</label>
-                    <select class="form-select" id="uf" required>
+                    <select class="form-select" id="veiculo" required>
                         <option selected disabled value="">Veiculo de uso</option>
                         <option value="MOTO">MOTO</option>
                         <option value="CARRO">CARRO</option>
@@ -145,8 +142,9 @@
                     </div>
                 </div>
             </div>
-
-                
+            <div class="col-12 text-center">
+                <button class="btn btn-primary" type="submit">Cadastrar</button>
+            </div>
         </form>
         <div>
         <div id="tabela">
@@ -157,6 +155,6 @@
 
 </body>
 <script src='/js/bootstrap.bundle.min.js'></script>
-<script src='/js/scriptCliente.js'></script>
+<script src='/js/scriptEntregadores.js'></script>
 
 </html>

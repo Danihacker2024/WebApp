@@ -4,10 +4,11 @@ const urlBase = 'http://localhost:4000/produtos';
 const formulario = document.getElementById("formCadProdutos");
 let listaDeProdutos = [];
 
-if (localStorage.getItem("produtos")){
+//if (localStorage.getItem("produtos")){
     //recuperando do armazenamento local a lista de produtos
-    listaDeProdutos = JSON.parse(localStorage.getItem("produtos"));
-}
+  //  listaDeProdutos = JSON.parse(localStorage.getItem("produtos"));
+   // mostrarTabelaProdutos();
+//}
 
 formulario.onsubmit=manipularSubmissao;
 
@@ -17,8 +18,7 @@ function manipularSubmissao(evento){
         const preco = document.getElementById("Preco").value;
         const estoque = document.getElementById("Estoque").value;
         const produto = {nome,preco,estoque};
-        listaDeProdutos.push(produto);
-        localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
+        cadastrarProduto(produto)
         formulario.reset();
         mostrarTabelaProdutos();
     }
@@ -81,16 +81,16 @@ function excluirProduto(id) {
                 return produto.id !== id;
             });
             // Atualizar o localStorage após a exclusão
-            localStorage.setItem("fornecedores", JSON.stringify(listaDeFornecedores));
+            //localStorage.setItem("produtos", JSON.stringify(listaDeProdutos));
             document.getElementById(id)?.remove(); // Excluir a linha da tabela
         }).catch((erro) => {
-            alert("Não foi possível excluir o fornecedor: " + erro);
+            alert("Não foi possível excluir o produto: " + erro);
         });
     }
 }
 
 
-function obterDadosFornecedores(){
+function obterDadosProdutos(){
     //enviar uma requisição para a fonte servidora
     fetch(urlBase, {
         method:"GET"
@@ -100,23 +100,23 @@ function obterDadosFornecedores(){
             return resposta.json();
         }
     })
-    .then((fornecedores)=>{
-        listaDeFornecedores=fornecedores;
-        localStorage.setItem("fornecedores", JSON.stringify(fornecedores));
-        mostrarTabelaFornecedores();
+    .then((produtos)=>{
+        listaDeProdutos=produtos;
+        //localStorage.setItem("produtos", JSON.stringify(produtos));
+        mostrarTabelaProdutos();
     })
     .catch((erro)=>{
-        alert("Erro ao tentar recuperar fornecedores do servidor!");
+        alert("Erro ao tentar recuperar produtos do servidor!");
     });
 }
 
-function cadastrarFornecedor(fornecedor){
+function cadastrarProduto(produto){
     fetch(urlBase,{
         "method":"POST",
         "headers": {
             "Content-Type":"application/json",
         },
-        "body":JSON.stringify(fornecedor)
+        "body":JSON.stringify(produto)
     })
     .then((resposta)=>{
         if(resposta.ok){
@@ -124,12 +124,12 @@ function cadastrarFornecedor(fornecedor){
         }
     })
     .then((dados)=>{
-        alert(`Fornecedor incluido com sucesso! ID:${dados.id}`);
+        alert(`Produto incluido com sucesso! ID:${dados.id}`);
     })
     .catch((erro)=>{
-        alert("Erro ao cadastrar o Fornecedor:" + erro);
+        alert("Erro ao cadastrar o Produto:" + erro);
     })
 }
 
 
-obterDadosFornecedores();
+obterDadosProdutos();
