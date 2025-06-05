@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de fornecedor</title>
+    <title>Cadastro de produtos</title>
     <link rel="stylesheet" href="/css/bootstrap.min.css"/>
 </head>
 <body>
@@ -44,48 +44,28 @@
           </div>
         </div>
       </nav>
-      <div class="container">
+    <div class="container">
         <div class="alert alert-secondary text-center mt-5">
-            <h1>Cadastro de Fornecedores</h1>
+            <h1>Cadastro de Usuarios</h1>
         </div>
-        <form id="formCadFornecedor" class="row g-3 needs-validation border m-1 p-2" novalidate>
-            <div class="col-md-6">
-                <label for="Nome" class="form-label">Nome </label>
-                <input type="text" class="form-control" id="Nome" required>
-                <div class="invalid-feedback">
-                    Por favor, informe o nome do fornecedor!
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="validationCustomUsername" class="form-label">Telefone</label>
-                <div class="input-group has-validation">
-                    <span class="input-group-text" id="inputGroupPrepend">📞</span>
-                    <input type="text" class="form-control" id="Telefone" aria-describedby="inputGroupPrepend" placeholder="(XX) XXXXX-XXXX" required>
-                    <div class="invalid-feedback">
-                        Por favor, informe o telefone.
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="Endereco" class="form-label">Endereço</label>
-                <input type="text" class="form-control" id="Endereco" required>
-                <div class="invalid-feedback">
-                    Por favor, informe o Endereco!
-                </div>
-            </div>
-            <div class="col-md-6">
-                <label for="Email">Endereço de email</label>
-                <input type="email" class="form-control" id="Email" placeholder="nome@exemplo.com">
-            </div>
-                <div class="col-12 text-center">
-                    <button class="btn btn-primary" type="submit">Cadastrar</button>
-                </div>
-        </form>
-        <div id="tabela">
+    <form id="formCadUsuarios" class="row g-3 needs-validation border m-1 p-2" novalidate>
+        <div class="form-row">
+          <div class="col-md-12 mb-3">
+            <label for="login">Login</label>
+            <input type="text" class="form-control" id="login" name="login" required>
+          </div>
+          <div class="col-md-12 mb-3">
+            <label for="senha">Senha</label>
+            <input type="text" class="form-control" id="senha" placeholder="0.00" name="senha" required>
+          </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Cadastrar</button>
+    </form>
+    </div>
+    <div id="tabela">
             
-        </div>
     </div>
 </body>
 <script src='/js/bootstrap.bundle.min.js'></script>
-<script src='/js/scriptFornecedor.js'></script>
+<script src="/js/scriptUsuarios.js"></script>
 </html>

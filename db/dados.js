@@ -79,6 +79,12 @@
       "nome": "Banana",
       "preco": "10",
       "estoque": "80"
+    },
+    {
+      "id": "e8ab",
+      "nome": "yamaha intruder 1999",
+      "preco": "14000",
+      "estoque": "20"
     }
   ],
   "entregadores": [
@@ -94,5 +100,15 @@
       "veiculo": "MOTO"
     }
   ],
-  "categorias": []
+  "categorias": [
+    {
+      "id": "3e49",
+      "nome": "Computador",
+      "descricao": "pessoal",
+      "tipo": "Tecnologia"
+    }
+  ]
+  "usuarios": [
+    
+  ]
 }

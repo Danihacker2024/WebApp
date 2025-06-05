@@ -95,7 +95,7 @@ app.get('/logout',(requisicao,resposta)=>{
 });
 
 app.listen(porta, host, () => {
-    console.log(`Servidor em execução em http://${host}:${porta}`);
+    console.log(`Servidor em execução em http://localhost:${porta}`);
 });
 
 

@@ -125,6 +125,7 @@ function cadastrarProduto(produto){
     })
     .then((dados)=>{
         alert(`Produto incluido com sucesso! ID:${dados.id}`);
+        obterDadosProdutos();
     })
     .catch((erro)=>{
         alert("Erro ao cadastrar o Produto:" + erro);

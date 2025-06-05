@@ -128,6 +128,7 @@ function cadastrarFornecedor(fornecedor){
     })
     .then((dados)=>{
         alert(`Fornecedor incluido com sucesso! ID:${dados.id}`);
+        obterDadosFornecedores();
     })
     .catch((erro)=>{
         alert("Erro ao cadastrar o Fornecedor:" + erro);

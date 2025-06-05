@@ -1,28 +1,20 @@
 
-const urlBase = 'http://localhost:4000/clientes';
+const urlBase = 'http://localhost:4000/categorias';
 
-const formulario = document.getElementById("formCadCliente");
-let listaDeClientes = [];
-
-if (localStorage.getItem("clientes")){
-    //recuperando do armazenamento local a lista de clientes
-    listaDeClientes = JSON.parse(localStorage.getItem("clientes"));
-}
+const formulario = document.getElementById("formCadCategorias");
+let lista = [];
 
 formulario.onsubmit=manipularSubmissao;
 
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
-        const cpf = document.getElementById("cpf").value;
         const nome = document.getElementById("nome").value;
-        const telefone = document.getElementById("telefone").value;
-        const cidade = document.getElementById("cidade").value;
-        const uf = document.getElementById("uf").value;
-        const cep = document.getElementById("cep").value;
-        const cliente = {cpf,nome,telefone,cidade,uf,cep};
-        cadastrarCliente(cliente);
+        const descricao = document.getElementById("descricao").value;
+        const tipo = document.getElementById("tipo").value;
+        const categoria = {nome,descricao,tipo};
+        cadastrar(categoria);
         formulario.reset();
-        mostrarTabelaClientes();
+        mostrarTabela();
     }
     else{
         formulario.classList.add('was-validated');
@@ -32,10 +24,10 @@ function manipularSubmissao(evento){
 
 }
 
-function mostrarTabelaClientes(){
+function mostrarTabela(){
     const divTabela = document.getElementById("tabela");
     divTabela.innerHTML=""; //apagando o conteúdo da div
-    if (listaDeClientes.length === 0){
+    if (lista.length === 0){
         divTabela.innerHTML="<p class='alert alert-info text-center'>Não há clientes cadastrados</p>";
     }
     else{
@@ -46,27 +38,21 @@ function mostrarTabelaClientes(){
         const corpo = document.createElement('tbody');
         cabecalho.innerHTML=`
             <tr>
-                <th>CPF</th>
                 <th>Nome</th>
-                <th>Telefone</th>
-                <th>Cidade</th>
-                <th>UF</th>
-                <th>CEP</th>
+                <th>Descricao</th>
+                <th>Tipo</th>
                 <th>Ações</th>
             </tr>
         `;
         tabela.appendChild(cabecalho);
-        for (let i=0; i < listaDeClientes.length; i++){
+        for (let i=0; i < lista.length; i++){
             const linha = document.createElement('tr');
-            linha.id=listaDeClientes[i].id;
+            linha.id=lista[i].id;
             linha.innerHTML=`
-                <td>${listaDeClientes[i].cpf}</td>
-                <td>${listaDeClientes[i].nome}</td>
-                <td>${listaDeClientes[i].telefone}</td>
-                <td>${listaDeClientes[i].cidade}</td>
-                <td>${listaDeClientes[i].uf}</td>
-                <td>${listaDeClientes[i].cep}</td>
-                <td><button type="button" class="btn btn-danger" onclick="excluirCliente('${listaDeClientes[i].id}')"><i class="bi bi-trash"></i></button></td>
+                <td>${lista[i].nome}</td>
+                <td>${lista[i].descricao}</td>
+                <td>${lista[i].tipo}</td>
+                <td><button type="button" class="btn btn-danger" onclick="excluir('${lista[i].id}')"><i class="bi bi-trash"></i></button></td>
             `;
             corpo.appendChild(linha);
         }
@@ -76,7 +62,7 @@ function mostrarTabelaClientes(){
     }
 }
 
-function excluirCliente(id){
+function excluir(id){
     if(confirm("Deseja realmente excluir o cliente " + id + "?")){
         fetch(urlBase + "/" + id,{
             method:"DELETE"
@@ -85,19 +71,19 @@ function excluirCliente(id){
                 return resposta.json();
             }
         }).then((dados)=>{
-            alert("Cliente excluído com sucesso!");
-            listaDeClientes = listaDeClientes.filter((cliente) => { 
-                return cliente.id !== id;
+            alert("Categoria excluída com sucesso!");
+            lista = lista.filter((categoria) => { 
+                return categoria.id !== id;
             });
             //localStorage.setItem("clientes", JSON.stringify(listaDeClientes));
             document.getElementById(id)?.remove(); //excluir a linha da tabela
         }).catch((erro) => {
-            alert("Não foi possível excluir o cliente: " + erro);
+            alert("Não foi possível excluir: " + erro);
         });
     }
 }
 
-function obterDadosClientes(){
+function obterDados(){
     //enviar uma requisição para a fonte servidora
     fetch(urlBase, {
         method:"GET"
@@ -107,22 +93,22 @@ function obterDadosClientes(){
             return resposta.json();
         }
     })
-    .then((clientes)=>{
-        listaDeClientes=clientes;
-        mostrarTabelaClientes();
+    .then((dados)=>{
+        lista=dados;
+        mostrarTabela();
     })
     .catch((erro)=>{
-        alert("Erro ao tentar recuperar clientes do servidor!");
+        alert("Erro ao tentar recuperar os dados do servidor!");
     });
 }
 
-function cadastrarCliente(cliente){
+function cadastrar(categoria){
     fetch(urlBase,{
         "method":"POST",
         "headers": {
             "Content-Type":"application/json",
         },
-        "body":JSON.stringify(cliente)
+        "body":JSON.stringify(categoria)
     })
     .then((resposta)=>{
         if(resposta.ok){
@@ -130,13 +116,13 @@ function cadastrarCliente(cliente){
         }
     })
     .then((dados)=>{
-        alert(`Cliente incluido com sucesso! ID:${dados.id}`);
-        obterDadosClientes();
+        alert(`Categoria incluida com sucesso! ID:${dados.id}`);
+        obterDados();
     })
     .catch((erro)=>{
-        alert("Erro ao cadastrar o cliente:" + erro);
+        alert("Erro ao cadastrar a categoria:" + erro);
     })
 }
 
 
-obterDadosClientes();
+obterDados();
