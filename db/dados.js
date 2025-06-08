@@ -107,8 +107,32 @@
       "descricao": "pessoal",
       "tipo": "Tecnologia"
     }
-  ]
+  ],
   "usuarios": [
-    
+    {
+      "id": "e345",
+      "login": "admin",
+      "senha": "admin"
+    },
+    {
+      "id": "9880",
+      "login": "Telma",
+      "senha": "123"
+    },
+    {
+      "id": "188c",
+      "login": "Daniel",
+      "senha": "987"
+    },
+    {
+      "id": "7bb4",
+      "login": "Fabio",
+      "senha": "456"
+    },
+    {
+      "id": "0299",
+      "login": "Gabriel",
+      "senha": "345"
+    }
   ]
 }

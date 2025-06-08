@@ -2,9 +2,11 @@ import express from 'express';
 import session from 'express-session';
 import verificarAutenticacao from './seguranca/autenticacao.js';
 
+const urlBase = 'http://localhost:4000/usuarios';
 const host = "0.0.0.0";
 const porta = 3000;
 const app = express();
+let lista = [];
 
 //Possibilitando a comunicação com estado (statefull)
 app.use(session({
@@ -30,8 +32,15 @@ app.use(express.static("./publico")); //assets
 
 app.post("/login",(requisicao, resposta) => {
   //desestruturação javascript
+  let flag=false;
   const { usuario, senha } = requisicao.body;
-  if (usuario == "admin" && senha == "admin"){
+  for(let i=0; i< lista.length;i++){
+    if(lista[i].login===usuario && lista[i].senha===senha){
+      flag=true;
+      break;
+    }
+  }
+  if (flag){
     requisicao.session.autenticado = true;
     resposta.redirect("/menu.html");
   }
@@ -92,10 +101,22 @@ app.use(verificarAutenticacao,express.static("./privado")); //assets
 app.get('/logout',(requisicao,resposta)=>{
     requisicao.session.destroy(); //exclui a sessão de um usuário
     resposta.redirect("/login.html"); //lembre-se que esse recurso é público
+    obterDados();
 });
+async function obterDados() {
+    try {
+        const resposta = await fetch(urlBase);
+        if (resposta.ok) {
+            lista = await resposta.json();
+        }
+    } catch (erro) {
+        console.error("Erro ao tentar recuperar os dados do servidor!", erro);
+    }
+}
 
-app.listen(porta, host, () => {
-    console.log(`Servidor em execução em http://localhost:${porta}`);
+// Aguarda carregar antes de iniciar o servidor
+obterDados().then(() => {
+    app.listen(porta, host, () => {
+        console.log(`Servidor em execução em http://localhost:${porta}`);
+    });
 });
-
-
