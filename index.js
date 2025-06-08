@@ -101,6 +101,7 @@ app.use(verificarAutenticacao,express.static("./privado")); //assets
 app.get('/logout',(requisicao,resposta)=>{
     requisicao.session.destroy(); //exclui a sessão de um usuário
     resposta.redirect("/login.html"); //lembre-se que esse recurso é público
+    obterDados();
 });
 async function obterDados() {
     try {

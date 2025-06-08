@@ -8,18 +8,19 @@ function carregarProdutos(){
     }).then((listaDeProdutos) => {
         const divVitrine = document.getElementById("vitrine");
         for (const produto of listaDeProdutos){
-            let card = document.createElement('div');
-            card.innerHTML=`
-            <div class="card" style="width: 18rem;">
-                <img width="150px" height="250px" src="${produto.image}" class="card-img-top" alt="...">
-                <div class="card-body">
-                    <h5 class="card-title">${produto.title}</h5>
-                    <p class="card-text">${produto.price}</p>
-                    <a href="#" class="btn btn-primary">Comprar</a>
+            let col = document.createElement('div');
+            col.className = 'col-md-4 col-sm-6 mb-4'; 
+            col.innerHTML=`
+                <div class="card h-100">
+                    <img src="${produto.image}" class="card-img-top" style="height: 250px; object-fit: contain;" alt="${produto.title}">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">${produto.title}</h5>
+                        <p class="card-text">$${produto.price}</p>
+                        <a href="#" class="btn btn-primary mt-auto">Comprar</a>
+                    </div>
                 </div>
-            </div>
             `;
-            divVitrine.appendChild(card);
+            divVitrine.appendChild(col);
         }
     }).catch((erro)=>{
         alert("Não foi possível carregar os produtos para a vitrine:" + erro);
