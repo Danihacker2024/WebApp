@@ -107,8 +107,12 @@
       "descricao": "pessoal",
       "tipo": "Tecnologia"
     }
-  ]
+  ],
   "usuarios": [
-    
+    {
+      "id": "e345",
+      "login": "admin",
+      "senha": "admin"
+    }
   ]
 }
