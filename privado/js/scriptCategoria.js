@@ -5,7 +5,7 @@ const formulario = document.getElementById("formCadCategorias");
 let lista = [];
 
 formulario.onsubmit=manipularSubmissao;
-
+addEventListener;
 function manipularSubmissao(evento){
     if (formulario.checkValidity()){
         const nome = document.getElementById("nome").value;
